@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useUser, useExample } from '../../hooks'
+import { useUser, useExample, useTheTodo } from '../../hooks'
 import axios from 'axios'
 import { Table } from 'semantic-ui-react'
 import { Button, Icon } from 'semantic-ui-react'
@@ -7,6 +7,7 @@ import Modal from '../ui/Modal'
 
 export default () => {
   const { user, toggleUser } = useUser()
+  const { todos, userTodos, deleteTodos } = userTodos()
   const { getExampleResolved } = useExample()
   const [modalVisible, setModalVisibility] = useState(false)
   function showModal() {

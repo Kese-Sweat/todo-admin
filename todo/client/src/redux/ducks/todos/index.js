@@ -26,14 +26,28 @@ export default (state = initialState, action) => {
 
 //5. action creator
 function getTodos(){
-  axios.get('/admin/users').then(resp =>{
- //KESE- I NEED TO FIGURE OUT WHAT URL I AM USING FOR MY TODOS???
-    dispatch({
-     type: GET_TODO,
-      payload: resp.data
-    })
-  })
+    return dispatch => {
+        axios.get('/api').then(resp =>{
+            dispatch({
+                type: GET_TODO,
+                payload: resp.data
+            })
+        })
+    }
 }
+
+function deleteTodos(){
+   return dispatch =>{
+        axios.delete('/api').then(resp =>{
+            dispatch({
+                type: GET_TODO,
+                payload: resp.data
+            })
+        })
+    }
+}
+
+
 
 
 
@@ -43,8 +57,9 @@ export function useTheTodo() {
   const todos = useSelector(appState => appState.todosState.user)
 
  const userTodos = () => dispatch (getTodos())
+ const removeTodo = () => dispatch(deleteTodos())
  
 
 
-  return { todos, userTodos }
+  return { todos, userTodos, removeTodo }
 }
