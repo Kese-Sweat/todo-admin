@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useExample } from '../../hooks'
+import { useExample, useTodo } from '../../hooks'
 import { Table } from 'semantic-ui-react'
 import { Button, Icon } from 'semantic-ui-react'
 import Modal from '../ui/Modal'
 
 export default () => {
+  const { todos, getAllTodos } = useTodo()
   const [modalVisible, setModalVisibility] = useState(false)
   const { getExampleResolved } = useExample()
   function showModal() {
     setModalVisibility(true)
+    getAllTodos()
   }
   function fakeHandleFormSubmit() {
     getExampleResolved().then(resp => {
@@ -49,7 +51,7 @@ export default () => {
             <Table.Cell textAlign='right'>
               <span>toggle status</span>
               <Button icon>
-                <Icon name='trash' />
+                <Icon name='trash' onClick />
               </Button>
             </Table.Cell>
           </Table.Row>
