@@ -13,4 +13,22 @@ router.get('/', (req, res, next) => {
   // res.json({ message: 'here!' })
 })
 
+
+let id = 1
+
+router.get('./users', (req, res, next) =>{
+  res.json(user)
+})
+
+router.get('./users/:id',(req, res, next) =>{
+  const user = user.find(item => item.id === req.params.id)
+  res.json(users)
+})
+
+router.delete('./users/:id', (req, res, next) =>{
+  users = users.filter(item.id !== req.params.id)
+  res.json(user)
+})
+
+
 module.exports = router

@@ -13,6 +13,9 @@ app.use('*', (req, res, next) => {
   }
   next()
 })
+
+
+
 // NOTE:
 // this route is just to set the user id without
 // not something we'd normally do in this manner
