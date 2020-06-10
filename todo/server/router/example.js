@@ -13,4 +13,13 @@ router.get('/', (req, res, next) => {
   // res.json({ message: 'here!' })
 })
 
+router.get('/', (req, res, next) => {
+  const id = req.user.id
+  conn.query(`SELECT * FROM todos;`, [id], (err, results) => {
+    console.log(results)
+    res.json(results)
+  })
+  // res.json({ message: 'here!' })
+})
+
 module.exports = router
