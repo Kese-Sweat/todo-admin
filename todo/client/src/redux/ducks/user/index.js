@@ -6,11 +6,14 @@ import { useSelector, useDispatch } from "react-redux"
 // 2. action definitions
 const SET_USER = 'user/SET_USER'
 
+
 // 3. initial state
 const initialState = {
-  user: {
+  
+  user: { 
     id: 1,
     admin: true,
+     
   }
 }
 
@@ -24,9 +27,12 @@ export default (state = initialState, action) => {
   }
 }
 
+
 // 6. custom hook
 export function useUser() {
   const dispatch = useDispatch()
   const user = useSelector(appState => appState.userState.user)
+
+
   return { user }
 }

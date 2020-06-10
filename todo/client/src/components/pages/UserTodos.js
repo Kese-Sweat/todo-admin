@@ -55,7 +55,12 @@ export default () => {
           <Table.Row>
             <Table.Cell>todo 1</Table.Cell>
             <Table.Cell textAlign='right'>
-              <span>toggle status</span>
+              <div>
+                <ul>
+                  
+                </ul>
+              </div>
+              <span onCLick={}>toggle status</span>
               <Button icon>
                 <Icon name='trash' />
               </Button>
