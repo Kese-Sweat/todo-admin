@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 
 // 2. action definitions
 const GET_TODO = 'todo/GET_TODO'
+const DELETE_TODO = 'delete/DELETE_TODO'
 
 
 
@@ -19,6 +20,8 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_TODO://KESE- update todos list and return new todos
       return {...state, todos: action.payload}
+    case DELETE_TODO:
+        return {...state, todos: state.todos.filter(todo => action.payload !== todo.id)}
     default:
       return state
   }
@@ -36,12 +39,12 @@ function getTodos(){
     }
 }
 
-function deleteTodos(){
+function deleteTodos(id){
    return dispatch =>{
         axios.delete('/api').then(resp =>{
             dispatch({
-                type: GET_TODO,
-                payload: resp.data
+                type: DELETE_TODO,
+                payload: id
             })
         })
     }
@@ -57,7 +60,7 @@ export function useTheTodo() {
   const todos = useSelector(appState => appState.todosState.user)
 
  const userTodos = () => dispatch (getTodos())
- const removeTodo = () => dispatch(deleteTodos())
+ const removeTodo = () => dispatch(deleteTodos(id))
  
 
 

@@ -7,7 +7,7 @@ import Modal from '../ui/Modal'
 
 export default () => {
   const { user, toggleUser } = useUser()
-  const { todos, userTodos, deleteTodos } = userTodos()
+  const { todos, userTodos, deleteTodos } = useTheTodo()
   const { getExampleResolved } = useExample()
   const [modalVisible, setModalVisibility] = useState(false)
   function showModal() {
