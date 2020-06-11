@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useUser, useExample, useTheTodo } from '../../hooks'
 import axios from 'axios'
 import { Table } from 'semantic-ui-react'
-import { Button, Icon } from 'semantic-ui-react'
+import { Button, Icon, } from 'semantic-ui-react'
 import Modal from '../ui/Modal'
+import Tab from './Tabs'
 
 export default () => {
   const { user, toggleUser } = useUser()
@@ -20,6 +21,9 @@ export default () => {
       setModalVisibility(false)
     })
   }
+
+
+  
 
   useEffect(() => {
     axios.get('/api')
@@ -51,17 +55,17 @@ export default () => {
             <Table.HeaderCell textAlign='right'>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
+        < Tab/>
         <Table.Body>
           <Table.Row>
-            <Table.Cell>todo 1</Table.Cell>
+            <Table.Cell></Table.Cell>
             <Table.Cell textAlign='right'>
               <div>
                 <ul>
                   
                 </ul>
               </div>
-              <span onCLick={}>toggle status</span>
+              <span>toggle status</span>
               <Button icon>
                 <Icon name='trash' />
               </Button>

@@ -3,6 +3,10 @@ import axios from 'axios'
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
+
+
+let id = 1
+
 // 2. action definitions
 const GET_TODO = 'todo/GET_TODO'
 const DELETE_TODO = 'delete/DELETE_TODO'
@@ -57,12 +61,12 @@ function deleteTodos(id){
 // 6. custom hook
 export function useTheTodo() {
   const dispatch = useDispatch()
-  const todos = useSelector(appState => appState.todosState.user)
+  //const todo = useSelector(appState => appState.todoState.todo)
 
  const userTodos = () => dispatch (getTodos())
  const removeTodo = () => dispatch(deleteTodos(id))
  
 
 
-  return { todos, userTodos, removeTodo }
+  return {  userTodos, removeTodo }
 }
