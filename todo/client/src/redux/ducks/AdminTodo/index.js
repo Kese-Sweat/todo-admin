@@ -5,35 +5,46 @@ import { useSelector, useDispatch } from "react-redux"
 
 // 2. action definitions
 const GET_TODOS = './GET_TODOS'
+const DELETE_TODOS = './DELETE_TODOS'
 
 // 3. initial state
 const initialState = {
-    todos: {},
+  todos: [],
+}
+
+// 4. reducer
+export default (state = initialState, action) => {
+  switch (action.type) {
+    case GET_TODOS:
+      return { ...state, todos: action.payload }
+    case DELETE_TODOS:
+      return { ...state, todo: initialState.todos }
+
+    default:
+      return state
   }
-  
-  // 4. reducer
-  export default (state = initialState, action) => {
-    switch (action.type) {
-      case GET_TODOS:
-        return { ...state, example: action.payload }
-      
-      default:
-        return state
-    }
-  }
+}
 
 // 5. action creators
 function getTodos() {
   return dispatch => {
-      axios.get('/api/todos').then(resp => {
-          dispatch({
-              type: GET_TODOS
-          })
-      })
-    
+    axios.get('/api/todos/admin').then(resp => {
+      console.log(resp)
+      // dispatch({
+      //     type: GET_TODOS,
+      //     payload: resp.data
+      // })
+    })
+
   }
 }
-
+function deleteTodo(id) {
+  return dispatch => {
+    axios.delete('/api/todos/admin' + id).then(resp => {
+      dispatch(getTodos())
+    })
+  }
+}
 
 
 // 6. custom hook
@@ -42,8 +53,9 @@ export function useTodo() {
   const todos = useSelector(appState => appState.todoState.todos)
 
   const getAllTodos = () => dispatch(getTodos())
-  
+  const deleteAllTodo = (id) => dispatch(deleteTodo(id))
 
- 
-  return { todos, getAllTodos  }
+
+
+  return { todos, getAllTodos, deleteAllTodo }
 }

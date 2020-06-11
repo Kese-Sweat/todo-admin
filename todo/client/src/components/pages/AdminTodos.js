@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useExample, useTodo } from '../../hooks'
+import { useExample, useTodo, } from '../../hooks'
 import { Table } from 'semantic-ui-react'
 import { Button, Icon } from 'semantic-ui-react'
 import Modal from '../ui/Modal'
 
+
 export default () => {
-  const { todos, getAllTodos } = useTodo()
+  const { todos, getAllTodos, deleteAllTodo }   = useTodo()
   const [modalVisible, setModalVisibility] = useState(false)
   const { getExampleResolved } = useExample()
   function showModal() {
     setModalVisibility(true)
-    getAllTodos()
+    
   }
   function fakeHandleFormSubmit() {
     getExampleResolved().then(resp => {
@@ -18,6 +19,13 @@ export default () => {
       setModalVisibility(false)
     })
   }
+
+  useEffect(() =>  {
+    getAllTodos()
+    deleteAllTodo()
+   
+  }, [])
+
   return (
     <div className="app-container">
       {
@@ -46,15 +54,19 @@ export default () => {
         </Table.Header>
 
         <Table.Body>
-          <Table.Row>
-            <Table.Cell>todo 1</Table.Cell>
+          {todos.map(item => {
+            return (
+              <Table.Row>
+            <Table.Cell>Table 1</Table.Cell>
             <Table.Cell textAlign='right'>
               <span>toggle status</span>
               <Button icon>
-                <Icon name='trash' onClick />
+                <Icon name='trash' onClick={() => deleteAllTodo(item.id)}/>
               </Button>
             </Table.Cell>
           </Table.Row>
+            )
+          })}
         </Table.Body>
       </Table>
     </div>

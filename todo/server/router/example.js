@@ -13,9 +13,10 @@ router.get('/', (req, res, next) => {
   // res.json({ message: 'here!' })
 })
 
-router.get('/todos', (req, res, next) => {
+router.get('/todos/admin', (req, res, next) => {
   const id = req.user.id
   conn.query(`SELECT * FROM todos;`, [id], (err, results) => {
+    console.log(err)
     console.log(results)
     res.json(results)
   })
