@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useExample } from '../../hooks'
+import { useAdmin } from '../../hooks'
 import { Table } from 'semantic-ui-react'
 import { Button, Icon } from 'semantic-ui-react'
 import Modal from '../ui/Modal'
@@ -7,6 +8,7 @@ import Modal from '../ui/Modal'
 export default () => {
   const [modalVisible, setModalVisibility] = useState(false)
   const { getExampleResolved } = useExample()
+  const { users, getUser, removeUser, createUser } = useAdmin()
   function showModal() {
     setModalVisibility(true)
   }
@@ -16,13 +18,19 @@ export default () => {
       setModalVisibility(false)
     })
   }
+  useEffect(() => {
+    getUser()
+  }, [])
   return (
     <div className="app-container">
       {
         modalVisible &&
         <Modal dismiss={() => setModalVisibility(false)}>
           <div>
-            form to create user...
+            <form>
+              <div>Enter your username:</div>
+              <input></input>
+            </form>
             <Button icon onClick={fakeHandleFormSubmit}>
               <Icon name='plus' />
             </Button>
@@ -42,18 +50,27 @@ export default () => {
             <Table.HeaderCell textAlign='right'>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
+      
         <Table.Body>
-          <Table.Row>
+        {users.map(user => {
+          return (
+            <Table.Row>
             <Table.Cell>user 1</Table.Cell>
             <Table.Cell textAlign='right'>
               <Button icon>
-                <Icon name='trash' />
+                <Icon name='trash' onClick={() => removeUser(user.id)}/>
               </Button>
             </Table.Cell>
           </Table.Row>
+          )
+        })}
         </Table.Body>
       </Table>
     </div>
   )
 }
+
+// Admin Users Page:
+// GET all users (SELECT)
+// DELETE user (DELETE)
+// CREATE user (INSERT INTO)

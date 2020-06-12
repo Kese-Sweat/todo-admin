@@ -13,4 +13,25 @@ router.get('/', (req, res, next) => {
   // res.json({ message: 'here!' })
 })
 
+router.get('/users', (req, res, next) => {
+  const id = req.user.id
+  conn.query(`SELECT * FROM users;`, [id], (err, results) => {
+    console.log(results)
+    res.json(results)
+  })
+})
+
+
+router.delete('/users/:id', (req, res, next) => {
+  const id = req.params.id
+  conn.query(`DELETE * FROM users WHERE id = ?;`, [id], (err, results) => {
+    console.log(results)
+    res.json(results)
+  })
+})
+
+
+
+
+
 module.exports = router
