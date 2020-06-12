@@ -39,6 +39,10 @@ export default () => {
               <Icon name='plus' />
             </Button>
           </div>
+          <form>
+                <input 
+                 placeholder="ADD YOUR TODO" />
+            </form>
         </Modal>
       }
 
@@ -60,11 +64,6 @@ export default () => {
           <Table.Row>
             <Table.Cell></Table.Cell>
             <Table.Cell textAlign='right'>
-              <div>
-                <ul>
-                  
-                </ul>
-              </div>
               <span>toggle status</span>
               <Button icon>
                 <Icon name='trash' />
