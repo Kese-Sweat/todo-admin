@@ -4,11 +4,12 @@ import axios from 'axios'
 import { Table } from 'semantic-ui-react'
 import { Button, Icon, } from 'semantic-ui-react'
 import Modal from '../ui/Modal'
-import Tab from './Tabs'
+import Tabs from './Tabs'
 
 export default () => {
+  
   const { user, toggleUser } = useUser()
-  const { todos, userTodos, deleteTodos } = useTheTodo()
+  const { todos, userTodos, deleteTodos, addTodo } = useTheTodo()
   const { getExampleResolved } = useExample()
   const [modalVisible, setModalVisibility] = useState(false)
   function showModal() {
@@ -22,8 +23,10 @@ export default () => {
     })
   }
 
-
-  
+//useEffect(() =>{
+ // useTheTodo(addTodo())
+//})
+    
 
   useEffect(() => {
     axios.get('/api')
@@ -39,7 +42,7 @@ export default () => {
               <Icon name='plus' />
             </Button>
           </div>
-          <form>
+          <form > 
                 <input 
                  placeholder="ADD YOUR TODO" />
             </form>
@@ -59,7 +62,7 @@ export default () => {
             <Table.HeaderCell textAlign='right'>Actions</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        < Tab/>
+        < Tabs/>
         <Table.Body>
           <Table.Row>
             <Table.Cell></Table.Cell>

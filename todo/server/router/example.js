@@ -2,9 +2,11 @@ const express = require('express')
 const router = express.Router()
 const conn = require('../db.js')
 
+
+
 // Example route below...
 // req.user.id will hold the current "logged in" user
-router.get('/', (req, res, next) => {
+router.get('/todos', (req, res, next) => {
   const id = req.user.id
   conn.query(`SELECT * FROM todos;`, [id], (err, results) => {
     console.log(results)
@@ -13,7 +15,7 @@ router.get('/', (req, res, next) => {
   // res.json({ message: 'here!' })
 })
 
-
+const todo = []
 let id = 1
 
 router.get('./users', (req, res, next) =>{
@@ -27,6 +29,10 @@ router.get('./users/:id',(req, res, next) =>{
 
 router.delete('./users/:id', (req, res, next) =>{
   users = users.filter(item.id !== req.params.id)
+  res.json(user)
+})
+
+router.post('./', (req,res, next) => {
   res.json(user)
 })
 

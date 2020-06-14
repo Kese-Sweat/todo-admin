@@ -1,12 +1,24 @@
 import React from 'react'
 import { Tab } from 'semantic-ui-react'
+import { useTheTodo } from '../../hooks'
 
+
+
+
+function Tabs(){
+  const { todos, userTodos, deleteTodos, addTodo } = useTheTodo()
+  
 const panes = [
-  { menuItem: 'Tab 1', render: () => <Tab.Pane>Tab 1 Content</Tab.Pane> },
-  { menuItem: 'Tab 2', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
-  { menuItem: 'Tab 3', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
+{ menuItem: 'ALL', render: () => <Tab.Pane>{userTodos}</Tab.Pane> },
+  { menuItem: 'ACTIVE', render: () => <Tab.Pane>Tab 2 Content</Tab.Pane> },
+  { menuItem: 'COMPLETED', render: () => <Tab.Pane>Tab 3 Content</Tab.Pane> },
 ]
 
 const TabExampleBasic = () => <Tab panes={panes} />
 
-export default TabExampleBasic
+return(<div>
+  <span>{TabExampleBasic()}</span>
+</div>)
+}
+
+export default Tabs

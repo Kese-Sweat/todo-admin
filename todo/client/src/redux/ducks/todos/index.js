@@ -9,7 +9,8 @@ let id = 1
 
 // 2. action definitions
 const GET_TODO = 'todo/GET_TODO'
-const DELETE_TODO = 'delete/DELETE_TODO'
+const ADD_TODO = 'todo/ADD_TODO'
+const DELETE_TODO = 'todo/DELETE_TODO'
 
 
 
@@ -43,9 +44,19 @@ function getTodos(){
     }
 }
 
+
+function addUserTodo(text){
+  return dispatch =>{
+    axios.post('./api', {text: text, status: 'active'})
+    .then(resp =>{
+      dispatch (getTodos())
+    })
+  }
+}
+
 function deleteTodos(id){
    return dispatch =>{
-        axios.delete('/api').then(resp =>{
+        axios.delete('/api/todos').then(resp =>{
             dispatch({
                 type: DELETE_TODO,
                 payload: id
@@ -61,12 +72,13 @@ function deleteTodos(id){
 // 6. custom hook
 export function useTheTodo() {
   const dispatch = useDispatch()
-  //const todo = useSelector(appState => appState.todoState.todo)
+  const todo = useSelector(appState => appState.todoState.todo)
 
+ const addTodo = ()  => dispatch (addUserTodo())
  const userTodos = () => dispatch (getTodos())
  const removeTodo = () => dispatch(deleteTodos(id))
  
 
 
-  return {  userTodos, removeTodo }
+  return {  userTodos, removeTodo, todo, addTodo }
 }
