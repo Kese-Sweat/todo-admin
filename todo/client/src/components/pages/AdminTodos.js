@@ -6,12 +6,12 @@ import Modal from '../ui/Modal'
 
 
 export default () => {
-  const { todos, getAllTodos, deleteAllTodo }   = useTodo()
+  const { todos, getAllTodos, deleteAllTodo, patchAllTodo } = useTodo()
   const [modalVisible, setModalVisibility] = useState(false)
   const { getExampleResolved } = useExample()
   function showModal() {
     setModalVisibility(true)
-    
+
   }
   function fakeHandleFormSubmit() {
     getExampleResolved().then(resp => {
@@ -20,10 +20,11 @@ export default () => {
     })
   }
 
-  useEffect(() =>  {
+  useEffect(() => {
     getAllTodos()
     deleteAllTodo()
-   
+    patchAllTodo
+
   }, [])
 
   return (
@@ -34,15 +35,16 @@ export default () => {
           <div>
             form to create todo as admin (w/ user)...
             <Button icon onClick={fakeHandleFormSubmit}>
-              <Icon name='plus' />
+              <Icon name='plus' onClick={() => getAllTodos()} />
             </Button>
           </div>
         </Modal>
       }
+
       <div className="d-flex justify-content-between">
         <h2>admin todos start</h2>
         <Button icon onClick={showModal}>
-          <Icon name='plus' />
+          <Icon name='plus' onClick={() => patchAllTodos()} />
         </Button>
       </div>
       <Table unstackable>
@@ -57,14 +59,14 @@ export default () => {
           {todos.map(item => {
             return (
               <Table.Row>
-            <Table.Cell>Table 1</Table.Cell>
-            <Table.Cell textAlign='right'>
-              <span>toggle status</span>
-              <Button icon>
-                <Icon name='trash' onClick={() => deleteAllTodo(item.id)}/>
-              </Button>
-            </Table.Cell>
-          </Table.Row>
+                <Table.Cell>Table 1</Table.Cell>
+                <Table.Cell textAlign='right'>
+                  <span>toggle status</span>
+                  <Button icon>
+                    <Icon name='trash' onClick={() => deleteAllTodo(item.id)} />
+                  </Button>
+                </Table.Cell>
+              </Table.Row>
             )
           })}
         </Table.Body>

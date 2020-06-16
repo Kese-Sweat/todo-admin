@@ -40,7 +40,16 @@ function getTodos() {
 }
 function deleteTodo(id) {
   return dispatch => {
-    axios.delete('/api/todos/admin' + id).then(resp => {
+    axios.delete('/api/todos/admin/' + id).then(resp => {
+      dispatch(getTodos())
+    })
+  }
+}
+
+function patchTodo(todo) {
+  return dispatch => {
+    const newUpdate = todo.status === 'completed' ? 'active' : 'completed'
+    axios.patch('/api/todos/admin' + todo.id, { status: newUpdate }).then(resp => {
       dispatch(getTodos())
     })
   }
@@ -54,8 +63,8 @@ export function useTodo() {
 
   const getAllTodos = () => dispatch(getTodos())
   const deleteAllTodo = (id) => dispatch(deleteTodo(id))
+  const patchAllTodo = (todo) => dispatch(patchTodo(todo))
 
 
-
-  return { todos, getAllTodos, deleteAllTodo }
+  return { todos, getAllTodos, deleteAllTodo, patchAllTodo }
 }

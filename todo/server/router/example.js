@@ -23,4 +23,25 @@ router.get('/todos/admin', (req, res, next) => {
   // res.json({ message: 'here!' })
 })
 
+router.delete('/todos/admin/:id', (req, res, next) => {
+  const id = req.params.id
+  conn.query(`DELETE FROM todos WHERE id = ?;`, [id], (err, results) => {
+    console.log(err)
+    console.log(results)
+    res.json(results)
+  })
+  // res.json({ message: 'here!' })
+})
+
+router.patch('/todos/admin/', (req, res, next) => {
+  const id = req.params.id
+  conn.query(`UPDATE todos SET first = 'a' WHERE id = ?,`, [id], (err, results) => {
+    console.log(err)
+    console.log(results)
+    res.json(results)
+  })
+  // res.json({ message: 'here!' })
+})
+
+
 module.exports = router
