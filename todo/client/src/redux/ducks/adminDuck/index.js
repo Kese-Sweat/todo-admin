@@ -50,16 +50,17 @@ function removeUserData(id) {
     }
 }
 
-function createUserData(text) {
-    return dispatch => {
-        axios.post('/todos', { text, status: 'active'})
-        .then(resp => {
-            dispatch(getUserData())
-        })
-    }
 
+function createUserData(email) {
+  return dispatch => {
+    return new Promise((resolve, reject) => {
+      axios.post('/api/users/', {email}).then(resp => {
+        dispatch(getUserData())
+        resolve('coming from example duck!')
+      })
+    })
+  }
 }
-
 
 
 
@@ -70,7 +71,7 @@ export function useAdmin() {
 
   const getUser = () => dispatch(getUserData())
   const removeUser = (id) => dispatch(removeUserData(id))
-  const createUser = (text) => dispatch(createUserData(text))
+  const createUser = (email) => dispatch(createUserData(email))
 
 
   return { users, getUser, removeUser, createUser }

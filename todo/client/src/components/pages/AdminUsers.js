@@ -7,13 +7,13 @@ import Modal from '../ui/Modal'
 
 export default () => {
   const [modalVisible, setModalVisibility] = useState(false)
-  const { getExampleResolved } = useExample()
+  const [ email, setEmail ] = useState('')
   const { users, getUser, removeUser, createUser } = useAdmin()
   function showModal() {
     setModalVisibility(true)
   }
-  function fakeHandleFormSubmit() {
-    getExampleResolved().then(resp => {
+  function handleFormSubmit() {
+    createUser(email).then(resp => {
       console.log('during modal close', resp)
       setModalVisibility(false)
     })
@@ -28,10 +28,10 @@ export default () => {
         <Modal dismiss={() => setModalVisibility(false)}>
           <div>
             <form>
-              <div>Enter your username:</div>
-              <input></input>
+              <div>Enter your EMAIL:</div>
+              <input onChange={(e) => setEmail(e.target.value)}/>
             </form>
-            <Button icon onClick={fakeHandleFormSubmit}>
+            <Button icon onClick={handleFormSubmit}>
               <Icon name='plus' />
             </Button>
           </div>
@@ -55,13 +55,13 @@ export default () => {
         {users.map(user => {
           return (
             <Table.Row>
-            <Table.Cell>user 1</Table.Cell>
-            <Table.Cell textAlign='right'>
-              <Button icon>
-                <Icon name='trash' onClick={() => removeUser(user.id)}/>
-              </Button>
-            </Table.Cell>
-          </Table.Row>
+              <Table.Cell>{user.email}</Table.Cell>
+              <Table.Cell textAlign='right'>
+                <Button icon>
+                  <Icon name='trash' onClick={() => removeUser(user.id)}/>
+                </Button>
+              </Table.Cell>
+            </Table.Row>
           )
         })}
         </Table.Body>
