@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
 //5. action creator
 function getTodos(){
     return dispatch => {
-        axios.get('/api').then(resp =>{
+        axios.get('/api/todos').then(resp =>{
             dispatch({
                 type: GET_TODO,
                 payload: resp.data
@@ -72,7 +72,7 @@ function deleteTodos(id){
 // 6. custom hook
 export function useTheTodo() {
   const dispatch = useDispatch()
-  const todo = useSelector(appState => appState.todoState.todo)
+  const todo = useSelector(appState => appState.todoState.todos)
 
  const addTodo = ()  => dispatch (addUserTodo())
  const userTodos = () => dispatch (getTodos())
